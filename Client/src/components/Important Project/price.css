@@ -1,0 +1,134 @@
+
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+/* Body */
+/* ------------------------------ */
+#bodynice {
+  background-color: #17bf9e;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  font-size: 100%;
+  line-height: 1;
+}
+
+/* Panel */
+/* ------------------------------ */
+.panel-container {
+  background-color: #17bf9e;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  font-size: 100%;
+  line-height: 1;
+  
+  background-color: white;
+  border-radius: 10px;
+  padding: 15px 25px;
+  width: 100%;
+  max-width: 960px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+/* Pricing Plan */
+/* ------------------------------ */
+.pricing-box {
+  border-bottom: 1px solid #e1f1ff;
+}
+
+.pricing-box:last-child {
+  border-bottom: none;
+}
+
+/* Image */
+.pricing-image {
+  margin-bottom: 25px;
+  max-width: 100%;
+}
+
+/* Header */
+.pricing-heading {
+  color: #888;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+/* Features */
+.pricing-features {
+  margin: 50px 0 25px;
+  color: #17bf9e;
+}
+
+.pricing-feature-item {
+  font-weight: 600;
+  letter-spacing: 1px;
+  font-size: 12px;
+  line-height: 1.5;
+  padding: 15px 0;
+  border-top: 1px solid #e1f1ff;
+}
+
+.pricing-feature-item:last-child{
+  border-bottom: 1px solid #e1f1ff;
+}
+
+/* Price */
+.pricing-price {
+  color: #17bf9e; 
+  display: block;
+  font-size: 32px;
+  font-weight: 700;
+}
+
+/* Button */
+.pricing-action {
+  border: 1px solid #9dd1ff;
+  border-radius: 10px;
+  color: #17bf9e;
+  display: inline-block;
+  padding: 15px 35px;
+  text-decoration: none;
+  margin: 25px 0;
+  transition: background-color 200ms ease-in-out;
+}
+
+.pricing-action:hover, .pricing-action:focus {
+  background-color: #e1f1ff;
+}
+
+.pricing-action.is-featured {
+  background-color: #17bf9e;
+  color: white;
+}
+
+.pricing-action.is-featured:hover, .pricing-action.is-featured:focus{
+  background-color: #17bf9e;
+  color: white;
+}
+
+/* Media Query */
+@media (min-width: 900px){
+  .panel-container {
+    flex-direction: row;
+  }
+  .pricing-box {
+    border-bottom: none;
+    border-right: 1px solid #e1f1ff;
+    padding: 25px 50px;
+  }
+  .pricing-box:last-child {
+    border-right: none;
+  }
+}
