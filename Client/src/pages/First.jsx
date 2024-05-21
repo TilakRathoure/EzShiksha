@@ -16,12 +16,12 @@ const First = () => {
             </h1>
             </div>
                 <div className='flex w-full gap-4 justify-evenly'>
-                    <div className='bg-white w-[25%] h-[250px] flex flex-col items-center justify-center rounded-2xl shadow-2xl p-2 hover:scale-105 transition translate-y-2'><img src={formula} className='w-[50%] h-[30%] object-contain  mb-2' alt="" /><h5>Solving Questions</h5>
-                    <p className='text-black leading-6'>Snap, solve. Math made easy. Revolutionize your learning!</p></div>
-                    <div className='bg-white w-[25%] h-[250px] flex flex-col items-center justify-center rounded-2xl shadow-2xl p-2 hover:scale-105 transition'><img src={note} className='w-[50%] h-[30%] object-contain mb-2' alt="" /><h5>Note Making</h5>
-                    <p className='text-black leading-6'>Upload image, get concise notes instantly. Simplify your studies! </p></div>
-                    <div className='bg-white w-[25%] h-[250px] flex flex-col items-center justify-center rounded-2xl shadow-2xl p-2 hover:scale-105 transition translate-y-2'><img src={para} className='w-[50%] h-[30%] object-contain mb-2' alt="" /><h5>Paraphrasing</h5>
-                    <p className='text-black leading-6'>Upload text or image, get paraphrased version instantly.</p></div>
+                    <div className='bg-white w-[25%] h-[250px] flex flex-col items-center justify-center rounded-2xl shadow-2xl p-2 hover:scale-105 transition translate-y-2'><img src={formula} className='w-[50%] h-[30%] object-contain' alt="" /><h5 className='text-[13px] md:text-xl'>Solving Questions</h5>
+                    <p className='text-black text-[10px] lg:text-lg leading-[18px] lg:overflow-hidden'>Snap, solve. Math made easy. Revolutionize your learning!</p></div>
+                    <div className='bg-white w-[25%] h-[250px] flex flex-col items-center justify-center rounded-2xl shadow-2xl p-2 pt-4 hover:scale-105 transition'><img src={note} className='w-[50%] h-[30%] object-contain' alt="" /><h5 className='text-sm md:text-xl'>Note Making</h5>
+                    <p className='text-black text-[10px] lg:text-lg leading-[18px] lg:overflow-hidden'>Upload image, get concise notes instantly. Simplify your studies! </p></div>
+                    <div className='bg-white w-[25%] h-[250px] flex flex-col items-center justify-center rounded-2xl shadow-2xl p-2 hover:scale-105 transition translate-y-2 text-wrap'><img src={para} className='w-[50%] h-[30%] object-contain' alt="" /><h5 className='text-sm md:text-xl '>Para phrasing</h5>
+                    <p className='text-black text-[10px] lg:overflow-hidden lg:text-lg leading-[18px]'>Upload text or image, get paraphrased version instantly.</p></div>
                 </div>
                 <div>
                     <p className='text-white mt-8 text-right font-bold'>and more.</p>
