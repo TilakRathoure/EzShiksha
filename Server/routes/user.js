@@ -21,19 +21,15 @@ const storage = multer.diskStorage({
   const upload = multer({ storage: storage });
 
 router.post("/upload",upload.single('image'),Extract)
-
 router.post("/solve",upload.single('imagesolve'),Solve)
-
-
-router.get("/nice",nice);
 router.post("/note",Notemaking)
 router.post("/gram",Grammerly)
-
 router.post("/new", register);
 router.post("/login", login);
 
-router.get("/logout",isAuthenticated, logout);
 
+router.get("/nice",nice);
+router.get("/logout",isAuthenticated, logout);
 router.get("/me", isAuthenticated, getMyProfile);
 
 export default router;
