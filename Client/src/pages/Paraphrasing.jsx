@@ -44,7 +44,7 @@ const Notemaking = () => {
               <textarea
               onChange={(e) => setEquationOutput(e.target.value)} 
               className={`h-[300px] border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent p-2 w-[100%]`}
-              placeholder="Solved Equation" value={equationInput}
+              placeholder="input text" value={equationInput}
             />
               <button 
               onClick={handlesubmit}

@@ -1,0 +1,5 @@
+Flask
+pytesseract
+Pillow
+requests
+gunicorn

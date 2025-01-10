@@ -1,5 +1,5 @@
 import React, { useContext, useRef } from "react";
-import { Link, Navigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button, Container } from "reactstrap";
 import img1 from "../../assests/images/unnamed.webp";
 import "./header.css";
@@ -29,8 +29,9 @@ const navLinks = [
 
 const Header = () => {
 
+  const navigate=useNavigate();
 
-  const {authentication,Setauthentication,user}=useContext(Contextfirst);
+  const {authentication,Setauthentication,user,Setuser}=useContext(Contextfirst);
 
   const menuRef = useRef();
 
@@ -42,6 +43,9 @@ const Header = () => {
     }).then((res)=>{
       Setauthentication(false);
       toast.success("Logged Out")
+      navigate("/");
+      Setuser("");
+
     }).catch((error)=>{
       Setauthentication(true);
     })
