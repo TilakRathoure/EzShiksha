@@ -28,8 +28,11 @@ app.use("/api/v1/users", userRouter);
 // app.use("/api/v1/task", taskRouter);
 
 app.get("/", (req, res) => {
-  res.send("Nice working lil");
+  res.send("Nice working");
 });
+app.get("/checking",(req,res)=>{
+  res.send("checking good");
+})
 
 // Using Error Middleware
 app.use(errorMiddleware);
