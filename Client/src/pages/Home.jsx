@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment,useState } from "react";
 import Header from "../components/Header/Header";
 import HeroSection from "../components/Hero-Section/HeroSection";
 import CompanySection from "../components/Company-section/Company";
@@ -10,20 +10,14 @@ import Testimonials from "../components/Testimonial/Testimonials";
 
 import Newsletter from "../components/Newsletter/Newsletter";
 import Footer from "../components/Footer/Footer";
-import { useContext } from "react";
+import { useContext,useEffect } from "react";
 import { Contextfirst } from "..";
 import { Navigate } from "react-router-dom";
+import axios from "axios";
+import { server } from "..";
 
 
 const Home = () => {
-
-  const {authentication} = useContext(Contextfirst)
-
-    if(!authentication){
-    return(
-        <Navigate to={"/"}/>
-    )
-}
 
   return (
     <Fragment>

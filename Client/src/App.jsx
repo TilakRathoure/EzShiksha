@@ -25,7 +25,7 @@ import Feedback from "./pages/Feedback";
 
 function App() {
 
-  const {Setauthentication,Setuser} = useContext(Contextfirst)
+  const {Setauthentication,Setuser,authentication,user} = useContext(Contextfirst)
 
   useEffect(()=>{
     
@@ -33,16 +33,16 @@ function App() {
       withCredentials:true,
     }).then((res)=>{
 
-      const nice=async()=>{
-        await Setuser(res.data.user.name)
+      const nice=()=>{
+        Setuser(res.data.user.name)
         Setauthentication(true);
       }
-
       nice();
+
     }).catch((error)=>{
       Setauthentication(false)
     })
-  },[]);
+  },[authentication,user]);
 
   return(
     <Router>

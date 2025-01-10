@@ -6,12 +6,15 @@ import img3 from './images/eye-open.png'
 import toast from "react-hot-toast";
 import axios from 'axios'
 import {Contextfirst, server} from '..'
+import { useNavigate } from 'react-router-dom'
 
 const Signup = () => {
     const [isHovered, setIsHovered] = useState(false);
     const {authentication,Setauthentication} = useContext(Contextfirst)
     const [user,setUser]=useState(true);
     const [show,setShow]=useState(true);
+
+    const navigate=useNavigate();
 
     const [data,Setdata]=useState({
         name:"",
@@ -29,6 +32,8 @@ const Signup = () => {
                 "Content-Type":"application/json",
             },withCredentials:true});
             toast.success(data.message)
+            Setauthentication(true);
+            navigate("/home")
         }catch(error){
             toast.error(error.response.data.message)
         }

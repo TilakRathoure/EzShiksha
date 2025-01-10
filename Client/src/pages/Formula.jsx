@@ -8,7 +8,6 @@ import { Link } from 'react-router-dom';
 
 
 const EquationSolver = () => {
-  // const [equationOutput, setEquationOutput] = useState('');
   const [selectedImage, setSelectedImage] = useState(null);
   const [disable,Setdisable]=useState(false)
   const [output,Setoutput]=useState("")
@@ -74,7 +73,7 @@ const EquationSolver = () => {
             <div id="imagePreview" className="mb-4">
               {selectedImage && (
                 <div className="relative">
-                  <img src={URL.createObjectURL(selectedImage)} className="w-full h-auto rounded-md" alt="Preview" />
+                  <img src={URL.createObjectURL(selectedImage)} className="w-full max-h-[50vh] rounded-md" alt="Preview" />
                   <button className="absolute top-0 right-0 mt-1 mr-1 text-red-600" onClick={removeImage}>
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
                       <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM7 9a1 1 0 011-1h4a1 1 0 110 2H8a1 1 0 01-1-1z" clipRule="evenodd" />

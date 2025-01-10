@@ -29,7 +29,8 @@ const navLinks = [
 
 const Header = () => {
 
-  const {authentication,Setauthentication}=useContext(Contextfirst);
+
+  const {authentication,Setauthentication,user}=useContext(Contextfirst);
 
   const menuRef = useRef();
 
@@ -46,14 +47,9 @@ const Header = () => {
     })
   }
 
-  if(!authentication){
-    return(
-      <Navigate to={"/"}/>
-    )
-  }
-
   return (
-    <header className=" bg-gradient-to-r from-blue-100">
+    <header className="relative bg-gradient-to-r from-blue-100">
+      <h1 className="absolute -bottom-10 right-10 md:right-[100px] text-2xl">Welcome {user}</h1>
       <Container>
         <div className="navigation d-flex items-center justify-content-between">
           <div className="logo mt-3">
@@ -70,7 +66,7 @@ const Header = () => {
                     <Link to={item.url}>{item.display}</Link>
                   </li>
                 ))}
-                {authentication? <button className="btn p-1" onClick={Logout}>Logout</button> : <li></li>}
+                {authentication? <button className="btn p-1" onClick={Logout}>Logout</button> : <Link className="" to={"/login"}>Login</Link>}
               </ul>
             </div>
 
