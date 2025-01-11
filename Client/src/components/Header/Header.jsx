@@ -24,41 +24,46 @@ const navLinks = [
   {
     display: "Resources",
     url: "/videos",
-  }
+  },
 ];
 
 const Header = () => {
+  const navigate = useNavigate();
 
-  const navigate=useNavigate();
-
-  const {authentication,Setauthentication,user,Setuser}=useContext(Contextfirst);
+  const { authentication, Setauthentication, user, Setuser } =
+    useContext(Contextfirst);
 
   const menuRef = useRef();
 
   const menuToggle = () => menuRef.current.classList.toggle("active__menu");
 
-  const Logout=()=>{
-    axios.get(`${server}/users/logout`,{
-      withCredentials:true,
-    }).then((res)=>{
-      Setauthentication(false);
-      toast.success("Logged Out")
-      navigate("/");
-      Setuser("");
-
-    }).catch((error)=>{
-      Setauthentication(true);
-    })
-  }
+  const Logout = () => {
+    axios
+      .get(`${server}/users/logout`, {
+        withCredentials: true,
+      })
+      .then((res) => {
+        Setauthentication(false);
+        toast.success("Logged Out");
+        navigate("/");
+        Setuser("");
+      })
+      .catch((error) => {
+        Setauthentication(true);
+      });
+  };
 
   return (
     <header className="relative bg-gradient-to-r from-blue-100">
-      <h1 className="absolute -bottom-10 right-10 md:right-[100px] text-2xl">Welcome {user}</h1>
+      <h1 className="absolute -bottom-10 right-10 md:right-[100px] text-2xl">
+        Welcome {user}
+      </h1>
       <Container>
         <div className="navigation d-flex items-center justify-content-between">
           <div className="logo mt-3">
             <h2 className=" d-flex align-items-center gap-1">
-              <img src={img1} className="w-20 object-contain mr-2" alt="" /> EzShiksha.
+              <img src={img1} className="w-20 object-contain mr-2" alt="" />{" "}
+              EzShiksha.
             </h2>
           </div>
 
@@ -70,13 +75,20 @@ const Header = () => {
                     <Link to={item.url}>{item.display}</Link>
                   </li>
                 ))}
-                {authentication? <button className="btn p-1" onClick={Logout}>Logout</button> : <Link className="" to={"/login"}>Login</Link>}
+                {authentication ? (
+                  <button className="btn p-1" onClick={Logout}>
+                    Logout
+                  </button>
+                ) : (
+                  <Link className="" to={"/login"}>
+                    <button className="btn p-1">Login</button>
+                  </Link>
+                )}
               </ul>
             </div>
 
             <div className="nav__right">
-              <p className="mb-0 d-flex align-items-center gap-2">
-              </p>
+              <p className="mb-0 d-flex align-items-center gap-2"></p>
             </div>
           </div>
 

@@ -193,8 +193,6 @@ def solve_equation(classification, equation_str):
 import cv2
 from PIL import Image
 import pytesseract
-
-pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
 # Function to extract text from an image
 def extract_text_from_image(image_path):
     # Read the image

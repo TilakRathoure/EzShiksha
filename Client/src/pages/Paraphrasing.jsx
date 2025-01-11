@@ -12,6 +12,13 @@ const Notemaking = () => {
 
 
   const handlesubmit=async(e)=>{
+
+    if(!equationInput || equationInput.length<=20){
+      toast.error("Too short");
+      return;
+
+    }
+
     Setdisable(true)
     Setloader(true)
     toast.success("Takes around 15secs")

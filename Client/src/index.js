@@ -7,7 +7,7 @@ import "remixicon/fonts/remixicon.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-export const server="http://localhost:5000/api/v1";
+export const server=`${process.env.REACT_APP_BACKEND_URL}/api/v1`;
 
 export const Contextfirst=createContext()
 

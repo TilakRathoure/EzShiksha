@@ -1,5 +1,9 @@
-Flask
 pytesseract
 Pillow
-requests
-gunicorn
+sympy
+nltk
+transformers
+language_tool_python
+autocorrect
+opencv-python
+

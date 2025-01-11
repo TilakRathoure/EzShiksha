@@ -1,15 +1,8 @@
 import pytesseract
 from PIL import Image
 import sys
-import json
-import os
-
 
 dataofimage = sys.argv[1]
-
-# Path to Tesseract executable (modify this according to your installation)
-pytesseract.pytesseract.tesseract_cmd = '/usr/bin/tesseract'
-
 
 # Function to extract text from an image
 def extract_text_from_image(image_path):

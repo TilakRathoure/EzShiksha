@@ -37,7 +37,7 @@ const HeroSection = () => {
         </div>
         <div className="w-full">
           <Link to={"/divein"}>
-            <button className="btn rounded-full w-full">Dive In</button>
+            <button className="btn rounded-full w-full mb-5 sm:mb-0">Dive In</button>
           </Link>
         </div>
       </Col>

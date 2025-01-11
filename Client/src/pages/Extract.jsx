@@ -55,7 +55,8 @@ const EquationSolver = () => {
 
   return (
     <div className="w-[100vw] h-[100vh] flex-col items-center justify-center p-8">
-      <div className={`w-full bg-white rounded-lg shadow-lg p-8 ${selectedImage?'h-auto' : 'h-[75vh]'}`}>
+      <div className={`relative w-full bg-white rounded-lg shadow-lg p-8 ${selectedImage?'h-auto' : 'h-[75vh]'}`}>
+      <a href='/Testing/test_image.png' download="test_image.png" className='bg-gray-400 absolute -top-5 right-0 text-white px-2 py-2 rounded-lg no-underline'>download sample image</a>
         <h1 className=" text-center">Extract Text</h1>
         <div className='flex gap-4 justify-center items-center h-full pt-4'>
           <div className='w-[50%] h-full gap-2 flex pt-5 flex-col  items-center'>

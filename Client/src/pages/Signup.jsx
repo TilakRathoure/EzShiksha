@@ -49,7 +49,7 @@ const Signup = () => {
     <div>
     <div className="p-5 md:flex w-[100vw] h-[100vh] border-2" id="home">
     <div className="login-right md:w-[40%] ">
-            <img className='h-full object-contain' src={img1} alt="" />
+            <img className='h-full max-h-[60vh] object-contain' src={img1} alt="" />
         </div>
         <div className="login-left md:w-[60%] p-10">
             <div className="login-header">
