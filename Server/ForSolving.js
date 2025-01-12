@@ -9,7 +9,7 @@ const imagePath = req.file.path;
 let responseData=''
 
 // const childPython =spawn('python',['codespace.py','OyeKool'])
-const childPython =spawn('python3',['maths.py',imagePath])
+const childPython =spawn('python',['maths.py',imagePath])
 
 
 childPython.stdout.on('data',(data)=>{

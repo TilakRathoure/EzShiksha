@@ -44,7 +44,7 @@ const EquationSolver = () => {
         Setdisable(false)
         Setloader(false);
         toast.success("Done!");
-    }catch(e){toast.error("Error occured, try again");Setdisable(false);Setloader(false)}
+    }catch(e){toast.error(`Error ${e}`);Setdisable(false);Setloader(false)}
   }
   else{
     toast.error("No file selected");
