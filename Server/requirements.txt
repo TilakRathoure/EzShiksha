@@ -1,9 +1,8 @@
-pytesseract
-Pillow
-sympy
-nltk
-transformers
-language_tool_python
-autocorrect
-opencv-python
-
+pytesseract==0.3.10
+Pillow==10.0.0
+sympy==1.12
+nltk==3.8.1
+transformers==4.39.3
+language_tool_python==2.7.3
+autocorrect==2.6.1
+opencv-python==4.9.0.80
