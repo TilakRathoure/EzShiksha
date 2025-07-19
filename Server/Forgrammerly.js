@@ -17,7 +17,7 @@ childPython.stdout.on('data',(data)=>{
 });
 
 childPython.stderr.on('data',(data)=>{
-    // console.error(`stdout: ${data}`);
+    console.error(`stdout: ${data}`);
 });
 
 childPython.on('close',(code)=>{
