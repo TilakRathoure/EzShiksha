@@ -9,7 +9,6 @@ npm install
 
 # Install Python dependencies
 echo "Installing Python dependencies..."
-cd python
 pip3 install -r requirements.txt
 cd ..
 
