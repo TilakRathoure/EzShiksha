@@ -50,18 +50,6 @@ const Footer = () => {
           </Col>
 
           {/* Get in Touch */}
-          <Col lg="3" md="6">
-            <h6 className="fw-bold mb-4">Get in Touch</h6>
-            <p className="text-black font-sans font-normal leading-4">
-              Address: Greater Noida, India
-            </p>
-            <p className="text-black font-sans font-normal leading-4">
-              Phone: +88 0123456789
-            </p>
-            <p className="text-black font-sans font-normal leading-4">
-              Email: example@gmail.com
-            </p>
-          </Col>
         </Row>
       </Container>
     </footer>

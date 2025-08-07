@@ -13,7 +13,7 @@ import { Contextfirst } from "../..";
 const HeroSection = () => {
 
   return (
-<section className="-mt-10 sm:mt-0 bg-gradient-to-r from-blue-100">
+<section className="-mt-[100px] sm:mt-0 bg-gradient-to-r from-blue-100">
   <Container className="relative">
 
     <Row>
