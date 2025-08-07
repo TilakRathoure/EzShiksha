@@ -10,18 +10,11 @@ import Testimonials from "../components/Testimonial/Testimonials";
 
 import Newsletter from "../components/Newsletter/Newsletter";
 import Footer from "../components/Footer/Footer";
-import { useContext,useEffect } from "react";
-import { Contextfirst } from "..";
-import { Navigate } from "react-router-dom";
-import axios from "axios";
-import { server } from "..";
-
 
 const Home = () => {
 
   return (
-    <Fragment>
-      <Header />
+    <div className="overflow-hidden">
       <HeroSection />
       <CompanySection />
       <AboutUs />
@@ -30,7 +23,7 @@ const Home = () => {
       <Testimonials />
       <Newsletter />
       <Footer />
-    </Fragment>
+    </div>
   );
 };
 

@@ -11,7 +11,7 @@ const Divein = () => {
 
   return (
     <div className='bg-gradient-to-r from-blue-100 w-[100vw] pb-8'>
-        <container className="flex flex-wrap gap-5 items-center justify-center pt-12 w-full h-full">
+        <container className="flex flex-wrap gap-5 px-3 items-center justify-center pt-12 w-full h-full">
             {elements.map((e)=>(
               
                 <Link to={e.ap} className='no-underline'>

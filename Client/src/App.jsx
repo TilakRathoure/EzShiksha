@@ -20,7 +20,7 @@ import { useContext } from "react";
 import { Contextfirst } from ".";
 import Videos from "./pages/Videos";
 import Feedback from "./pages/Feedback";
-
+import Header from "./components/Header/Header";
 
 
 function App() {
@@ -46,6 +46,7 @@ function App() {
 
   return(
     <Router>
+      <Header />
       <Routes>
       <Route path="/notemaking" element={<Notemaking/>}/>
         <Route path="/paraphrase" element={<Paraphrasing/>}/>
