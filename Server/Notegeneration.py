@@ -1,11 +1,10 @@
 import nltk
-nltk.download('punkt')
-nltk.download('stopwords')
 from nltk.tokenize import sent_tokenize
 from nltk.corpus import stopwords
 from heapq import nlargest
 import sys
 import json
+nltk.data.path.append("./nltk_data")
 
 data = sys.argv[1] if len(sys.argv) > 1 else None
 

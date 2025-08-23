@@ -10,6 +10,5 @@ npm install
 # Install Python dependencies
 echo "Installing Python dependencies..."
 pip3 install -r requirements.txt
-cd ..
 
 echo "Build completed successfully!"

@@ -1,93 +1,55 @@
-import sys
-import json  # Import the json module
-
-# Parse the JSON string received from sys.argv[1]
-
-# Access the "channel" property from the parsed JSON object
-
-
+import sys, json
 import nltk
-from nltk.tokenize import word_tokenize
+from nltk.corpus import wordnet
 from transformers import pipeline
 from language_tool_python import LanguageTool
-from nltk.corpus import wordnet
+import autocorrect
 from autocorrect import Speller
 
-# Download NLTK resources
-nltk.download('punkt')
-nltk.download('averaged_perceptron_tagger')
-nltk.download('wordnet')
+# point nltk to local data folder
+nltk.data.path.append("./nltk_data")
 
-# Initialize paraphrasing pipeline
-paraphrase_pipeline = pipeline("text2text-generation", model="tuner007/pegasus_paraphrase")
-
-def get_wordnet_pos(treebank_tag):
-    """
-    Map Treebank POS tags to WordNet POS tags.
-    """
-    if treebank_tag.startswith('J'):
-        return wordnet.ADJ
-    elif treebank_tag.startswith('V'):
-        return wordnet.VERB
-    elif treebank_tag.startswith('N'):
-        return wordnet.NOUN
-    elif treebank_tag.startswith('R'):
-        return wordnet.ADV
-    else:
-        return None
+# initialize models
+paraphrase_pipeline = pipeline("text2text-generation", model="tuner007/pegasus_paraphrase", cache_dir="./models")
+tool = LanguageTool('en-US')
+spell = Speller(lang='en')
 
 def grammar_correction(text):
-    """
-    Perform basic grammar correction.
-    """
-    tool = LanguageTool('en-US')
     matches = tool.check(text)
-    corrected_text = tool.correct(text)
-    return corrected_text
+    return tool.correct(text)
 
 def paraphrase(text):
-    """
-    Generate paraphrases for the input text.
-    """
     paraphrases = paraphrase_pipeline(text, max_length=50, num_return_sequences=3)
-    return [paraphrase['generated_text'] for paraphrase in paraphrases]
+    return [p['generated_text'] for p in paraphrases]
 
 def spell_check(text):
-    """
-    Correct spelling mistakes in the input text.
-    """
-    spell = Speller(lang='en')
-    corrected_text = spell(text)
-    return corrected_text
+    return spell(text)
 
 def combined_processing(input_text):
-    """
-    Perform spell check, grammar correction, and paraphrasing.
-    """
-    # Spell check
     spell_checked_text = spell_check(input_text)
-    print("Spell-checked Text:", spell_checked_text)
-    print()
+    grammar_corrected = grammar_correction(spell_checked_text)
+    paraphrases = paraphrase(grammar_corrected)
 
-    # Grammar correction
-    corrected_text_with_grammar = grammar_correction(spell_checked_text)
-    print("Text with Grammar Correction:", corrected_text_with_grammar)
-
-    # Paraphrasing
-    paraphrases = paraphrase(corrected_text_with_grammar)
-    print("Paraphrases:")
-    for idx, para in enumerate(paraphrases):
-        print(f"{idx + 1}. {para}")
-
-    return spell_checked_text, corrected_text_with_grammar, paraphrases
-
-data = sys.argv[1]
+    return {
+        "spell_checked": spell_checked_text,
+        "grammar_corrected": grammar_corrected,
+        "paraphrases": paraphrases
+    }
 
 def main():
-    # input_text = "He is goign to the store to buy some grocereis."
-    combined_processing(data)
-    
+    raw_data = sys.argv[1] if len(sys.argv) > 1 else None
+    if not raw_data:
+        print(json.dumps({"error": "No input provided"}))
+        sys.exit(1)
 
+    try:
+        parsed = json.loads(raw_data)
+        input_text = parsed.get("text", raw_data)
+    except:
+        input_text = raw_data
+
+    result = combined_processing(input_text)
+    print(json.dumps(result, indent=2))
 
 if __name__ == "__main__":
     main()
