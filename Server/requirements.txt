@@ -3,8 +3,8 @@ transformers
 nltk
 language_tool_python
 torch
-sentencepiece 
-pytesseract
+sentencepiece
 Pillow
 sympy
 opencv-python
+easyocr

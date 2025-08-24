@@ -1,30 +1,31 @@
-import pytesseract
-from PIL import Image
 import sys
+import easyocr  # OCR alternative to pytesseract
 
-dataofimage = sys.argv[1]
+# Initialize EasyOCR reader without progress bar
+reader = easyocr.Reader(['en'], gpu=False, verbose=False)
 
-# Function to extract text from an image
-def extract_text_from_image(image_path):
+# ------------------ Function to extract text ------------------ #
+def extract_text_from_image(image_path: str) -> str:
     try:
-        # Open the image file
-        with Image.open(image_path) as img:
-            # Use Tesseract OCR to extract text from the image
-            extracted_text = pytesseract.image_to_string(img)
-            return extracted_text
+        results = reader.readtext(image_path)
+        # Combine all detected text segments
+        extracted_text = " ".join([res[1] for res in results])
+        return extracted_text
     except Exception as e:
         print("Error:", e)
         return None
 
-# Path to the image file
-image_path = dataofimage
+# ------------------ Main ------------------ #
+if __name__ == "__main__":
+    if len(sys.argv) < 2:
+        print("Usage: python script.py <image_path>")
+        sys.exit(1)
 
-# Extract text from the image
-extracted_text = extract_text_from_image(image_path)
+    image_path = sys.argv[1]
+    extracted_text = extract_text_from_image(image_path)
 
-# Print the extracted text
-if extracted_text:
-    print("Extracted text from the image:")
-    print(extracted_text)
-else:
-    print("Failed to extract text from the image.")
+    if extracted_text:
+        print("Extracted text from the image:")
+        print(extracted_text)
+    else:
+        print("Failed to extract text from the image.")
