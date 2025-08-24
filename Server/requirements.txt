@@ -6,5 +6,4 @@ torch
 sentencepiece
 Pillow
 sympy
-opencv-python
 easyocr
