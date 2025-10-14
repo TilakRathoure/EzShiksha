@@ -5,6 +5,8 @@ language_tool_python
 torch
 sentencepiece
 Pillow
+pytesseract
+pillow
 sympy
 opencv-python
 easyocr
