@@ -1,6 +1,9 @@
 import sys
 from PIL import Image
 import pytesseract
+import os
+
+pytesseract.pytesseract.tesseract_cmd = "/usr/bin/tesseract"
 
 # ------------------ Function to extract text ------------------ #
 def extract_text_from_image(image_path: str) -> str:
@@ -30,10 +33,15 @@ if __name__ == "__main__":
         sys.exit(1)
 
     image_path = sys.argv[1]
+
+    # Ensure the file exists before processing
+    if not os.path.isfile(image_path):
+        print(f"Error: Image file does not exist: {image_path}")
+        sys.exit(1)
+
     text = extract_text_from_image(image_path)
 
     if text:
-        print("\n🟩 Extracted text from the image:\n")
         print(text)
     else:
-        print("\n❌ Failed to extract text from the image.")
+        print("❌ Failed to extract text from the image.")
