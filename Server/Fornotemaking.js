@@ -9,7 +9,7 @@ const inputtext=req.body.name
 let responseData=''
 
 // const childPython =spawn('python',['codespace.py','OyeKool'])
-const childPython =spawn('python',['Notegeneration.py',inputtext])
+const childPython =spawn('python3',['Notegeneration.py',inputtext])
 
 
 childPython.stdout.on('data',(data)=>{

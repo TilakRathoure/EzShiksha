@@ -1,11 +1,34 @@
 import re
-from sympy import symbols, Eq, solve, log, sin, pi, sqrt
 import sys
-import easyocr  # OCR alternative to pytesseract
+from sympy import symbols, Eq, solve, log, sin, pi, sqrt
+from PIL import Image
+import pytesseract
+import shutil
+import os
 
-# ------------------ Initialize EasyOCR Reader ------------------ #
-# Disable progress output
-reader = easyocr.Reader(['en'], gpu=False, verbose=False)
+# ------------------ Detect Tesseract dynamically ------------------ #
+tesseract_path = shutil.which("tesseract")
+if tesseract_path:
+    pytesseract.pytesseract.tesseract_cmd = tesseract_path
+else:
+    raise EnvironmentError(
+        "Tesseract OCR is not installed or not in PATH. "
+        "Please install it. "
+        "Linux: sudo apt install tesseract-ocr\n"
+        "MacOS: brew install tesseract\n"
+        "Windows: Download from https://github.com/UB-Mannheim/tesseract/wiki"
+    )
+
+# ------------------ OCR Using Tesseract ------------------ #
+def extract_text_from_image(image_path: str) -> str:
+    try:
+        image = Image.open(image_path)
+        extracted_text = pytesseract.image_to_string(image)
+        cleaned_text = " ".join(extracted_text.split())
+        return cleaned_text.replace('A', '^')  # optional fix
+    except Exception as e:
+        print("Error while extracting text:", e)
+        return None
 
 # ------------------ Equation Classification ------------------ #
 def classify_equation(equation: str) -> str:
@@ -65,7 +88,6 @@ def solve_trigonometric_equation(equation_str):
     x = symbols('x')
     equation = Eq(sin(x), float(result))
     solutions = solve(equation, x)
-    # Convert radians to degrees
     return [s * 180 / pi.evalf() for s in solutions]
 
 def solve_radical_equation(equation_str):
@@ -96,12 +118,6 @@ def solve_equation(classification, equation_str):
     else:
         return "Sorry, the solution of this equation cannot be found."
 
-# ------------------ OCR Using EasyOCR ------------------ #
-def extract_text_from_image(image_path: str) -> str:
-    results = reader.readtext(image_path)
-    extracted_text = " ".join([res[1] for res in results])
-    return extracted_text.replace('A', '^')  # fix misread '^'
-
 # ------------------ Main ------------------ #
 if __name__ == "__main__":
     if len(sys.argv) < 2:
@@ -109,7 +125,16 @@ if __name__ == "__main__":
         sys.exit(1)
 
     image_path = sys.argv[1]
+
+    if not os.path.isfile(image_path):
+        print(f"Error: Image file does not exist: {image_path}")
+        sys.exit(1)
+
     extracted_text = extract_text_from_image(image_path)
+
+    if not extracted_text:
+        print("❌ Failed to extract text from the image.")
+        sys.exit(1)
 
     classification = classify_equation(extracted_text)
     solutions = solve_equation(classification, extracted_text)

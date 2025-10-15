@@ -6,7 +6,4 @@ torch
 sentencepiece
 Pillow
 pytesseract
-pillow
 sympy
-opencv-python
-easyocr
