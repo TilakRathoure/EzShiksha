@@ -1,9 +1,10 @@
 import sys
 import json
+import os
 from language_tool_python import LanguageTool
 
-# ------------------ Initialize LanguageTool ------------------ #
-tool = LanguageTool('en-US')
+tool = LanguageTool('en-US', cache_dir=os.getenv("LT_CACHE_DIR"))
+
 
 # ------------------ Functions ------------------ #
 def grammar_and_spell_correction(text):

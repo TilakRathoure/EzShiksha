@@ -7,6 +7,7 @@ RUN apt-get update && apt-get install -y \
 
 ENV PYTHONUNBUFFERED=1
 ENV NODE_ENV=production
+ENV LT_DIR=/usr/share/languagetool
 
 WORKDIR /app
 
@@ -19,7 +20,10 @@ COPY requirements.txt .
 RUN pip3 install --break-system-packages --no-cache-dir -r requirements.txt
 
 # Prebuild LanguageTool (cache JARs)
-RUN python3 -c "import language_tool_python; language_tool_python.LanguageTool('en-US')" 2>/dev/null
+RUN mkdir -p $LT_DIR && \
+    wget https://languagetool.org/download/LanguageTool-stable.zip -O /tmp/languagetool.zip && \
+    unzip /tmp/languagetool.zip -d $LT_DIR && \
+    rm /tmp/languagetool.zip
 
 # Copy rest of the app
 COPY . .
