@@ -21,9 +21,10 @@ RUN pip3 install --break-system-packages --no-cache-dir -r requirements.txt
 
 # Pre-download LanguageTool
 RUN mkdir -p /usr/share/languagetool && \
-    wget https://languagetool.org/download/LanguageTool-stable.zip -O /tmp/languagetool.zip && \
-    unzip /tmp/languagetool.zip -d /usr/share/languagetool && \
-    rm /tmp/languagetool.zip
+    curl -L -o /tmp/LanguageTool.zip https://languagetool.org/download/LanguageTool-stable.zip && \
+    unzip /tmp/LanguageTool.zip -d /usr/share/languagetool && \
+    mv /usr/share/languagetool/LanguageTool-* /usr/share/languagetool/LanguageTool-stable && \
+    rm /tmp/LanguageTool.zip
 
 # Copy rest of the app
 COPY . .
