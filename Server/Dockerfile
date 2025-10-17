@@ -19,10 +19,10 @@ RUN npm install
 COPY requirements.txt .
 RUN pip3 install --break-system-packages --no-cache-dir -r requirements.txt
 
-# Prebuild LanguageTool (cache JARs)
-RUN mkdir -p $LT_DIR && \
+# Pre-download LanguageTool
+RUN mkdir -p /usr/share/languagetool && \
     wget https://languagetool.org/download/LanguageTool-stable.zip -O /tmp/languagetool.zip && \
-    unzip /tmp/languagetool.zip -d $LT_DIR && \
+    unzip /tmp/languagetool.zip -d /usr/share/languagetool && \
     rm /tmp/languagetool.zip
 
 # Copy rest of the app
