@@ -1,11 +1,10 @@
 import sys
 import json
-import os
-import language_tool_python
 
-# Use cached LanguageTool JARs installed in Docker image
-lt_path = os.getenv("LANGTOOL_PATH")
-tool = language_tool_python.LanguageTool('en-US', path=lt_path)
+
+from language_tool_python import LanguageTool
+tool = LanguageTool('en-US', path='/usr/share/languagetool/LanguageTool-stable')
+
 
 # ------------------ Functions ------------------ #
 def grammar_and_spell_correction(text):

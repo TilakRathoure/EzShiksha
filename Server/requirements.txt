@@ -1,7 +1,7 @@
 autocorrect
 transformers
 nltk
-language_tool_python>=2.9.4
+language_tool_python>=2.10.0
 torch
 sentencepiece
 Pillow
