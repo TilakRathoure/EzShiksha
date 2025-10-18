@@ -2,7 +2,7 @@ autocorrect
 transformers
 nltk
 language_tool_python==2.9.4
-torch==2.8.1
+torch==2.8.0
 sentencepiece
 Pillow
 pytesseract
