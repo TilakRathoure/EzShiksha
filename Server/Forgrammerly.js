@@ -9,7 +9,7 @@ const inputtext=req.body.name
 let responseData=''
 
 // const childPython =spawn('python',['codespace.py','OyeKool'])
-const childPython =spawn('python',['Grammerly.py',inputtext])
+const childPython =spawn('python3',['Grammerly.py',inputtext])
 
 
 childPython.stdout.on('data',(data)=>{
@@ -22,10 +22,13 @@ childPython.stderr.on('data',(data)=>{
 
 childPython.on('close',(code)=>{
     console.log(`child process exited with code ${code}`);
-        
-    // Once the child process has finished, remove the \r\n characters from responseData
 
-    // Send the modified responseData back in the response
+    if(code==1){
+        return res.status(300).json({
+            error:"error",
+        })
+    }
+
     res.json({ trying: responseData });
 })
 
