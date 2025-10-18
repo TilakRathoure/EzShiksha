@@ -1,20 +1,15 @@
 import sys
 import json
-import os
 from language_tool_python import LanguageTool
 
-tool = LanguageTool('en-US', cache_dir=os.getenv("LT_CACHE_DIR"))
+tool = LanguageTool('en-US')
 
-
-# ------------------ Functions ------------------ #
 def grammar_and_spell_correction(text):
     """
     Corrects both grammar and spelling using LanguageTool.
     """
-    corrected_text = tool.correct(text)
-    return corrected_text
+    return tool.correct(text)
 
-# ------------------ Main ------------------ #
 def main():
     raw_data = sys.argv[1] if len(sys.argv) > 1 else None
     if not raw_data:
@@ -32,3 +27,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+    tool.close() 
