@@ -1,4 +1,4 @@
-## ShopHere
+## EzShiksha
 
 Introducing EzShiksha: Simplify academics with ease. Upload math problems or text, receive instant solutions or paraphrased notes. Enjoy spell check, grammar correction, and text extraction from images. Streamline your learning experience today.
 
