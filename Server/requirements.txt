@@ -1,9 +1,9 @@
 autocorrect
 transformers
 nltk
-language_tool_python
 torch
 sentencepiece
 Pillow
 pytesseract
 sympy
+textblob==0.22.0

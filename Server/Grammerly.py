@@ -1,20 +1,12 @@
+from textblob import TextBlob
 import sys
 import json
-from language_tool_python import LanguageTool
 
-# Point to pre-downloaded LT directory
-tool = LanguageTool('/usr/share/languagetool/LanguageTool-stable')
-
-
-# ------------------ Functions ------------------ #
 def grammar_and_spell_correction(text):
-    """
-    Corrects both grammar and spelling using LanguageTool.
-    """
-    corrected_text = tool.correct(text)
-    return corrected_text
+    blob = TextBlob(text)
+    corrected = str(blob.correct())
+    return corrected
 
-# ------------------ Main ------------------ #
 def main():
     raw_data = sys.argv[1] if len(sys.argv) > 1 else None
     if not raw_data:
