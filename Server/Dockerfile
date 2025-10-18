@@ -11,13 +11,16 @@ ENV LT_DIR=/usr/share/languagetool
 
 WORKDIR /app
 
-# Copy and install Node dependencies
+# Copy Node dependencies
 COPY package*.json ./
 RUN npm install
 
-# Copy Python requirements and install
+# Copy Python requirements
 COPY requirements.txt .
-RUN pip3 install --break-system-packages --no-cache-dir -r requirements.txt
+
+# Ensure pip is up to date and clean install Python deps
+RUN pip3 install --no-cache-dir --upgrade pip setuptools wheel \
+ && pip3 install --break-system-packages --no-cache-dir -r requirements.txt --prefer-binary
 
 # Pre-download LanguageTool
 RUN mkdir -p /usr/share/languagetool && \
@@ -26,7 +29,7 @@ RUN mkdir -p /usr/share/languagetool && \
     mv /usr/share/languagetool/LanguageTool-* /usr/share/languagetool/LanguageTool-stable && \
     rm /tmp/LanguageTool.zip
 
-# Copy rest of the app
+# Copy the rest of the app
 COPY . .
 
 EXPOSE 5000
