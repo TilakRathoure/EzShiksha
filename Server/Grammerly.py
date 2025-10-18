@@ -1,9 +1,9 @@
 import sys
 import json
-
-
 from language_tool_python import LanguageTool
-tool = LanguageTool('en-US', path='/usr/share/languagetool/LanguageTool-stable')
+
+# Point to pre-downloaded LT directory
+tool = LanguageTool('/usr/share/languagetool/LanguageTool-stable')
 
 
 # ------------------ Functions ------------------ #
