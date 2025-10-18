@@ -9,7 +9,7 @@ import cors from "cors";
 export const app = express();
 
 config({
-  path: "./data/config.env",
+  path: ".env",
 });
 
 // Using Middlewares
