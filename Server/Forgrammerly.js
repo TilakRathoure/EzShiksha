@@ -22,10 +22,13 @@ childPython.stderr.on('data',(data)=>{
 
 childPython.on('close',(code)=>{
     console.log(`child process exited with code ${code}`);
-        
-    // Once the child process has finished, remove the \r\n characters from responseData
 
-    // Send the modified responseData back in the response
+    if(code==1){
+        return res.status(300).json({
+            error:"error",
+        })
+    }
+
     res.json({ trying: responseData });
 })
 
