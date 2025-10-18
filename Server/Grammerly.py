@@ -2,7 +2,9 @@ import sys
 import json
 from language_tool_python import LanguageTool
 
-tool = LanguageTool('en-US')
+LT_PATH = "/usr/share/languagetool/LanguageTool-6.4"
+
+tool = LanguageTool('en-US', path=LT_PATH)
 
 def grammar_and_spell_correction(text):
     """

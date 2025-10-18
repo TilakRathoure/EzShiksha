@@ -2,6 +2,7 @@ autocorrect
 transformers
 nltk
 language_tool_python==2.9.4
+psutil==5.9.8
 torch
 sentencepiece
 Pillow
