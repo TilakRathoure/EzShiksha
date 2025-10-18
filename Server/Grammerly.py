@@ -1,12 +1,20 @@
-from textblob import TextBlob
 import sys
 import json
+import os
+from language_tool_python import LanguageTool
 
+tool = LanguageTool('en-US', cache_dir=os.getenv("LT_CACHE_DIR"))
+
+
+# ------------------ Functions ------------------ #
 def grammar_and_spell_correction(text):
-    blob = TextBlob(text)
-    corrected = str(blob.correct())
-    return corrected
+    """
+    Corrects both grammar and spelling using LanguageTool.
+    """
+    corrected_text = tool.correct(text)
+    return corrected_text
 
+# ------------------ Main ------------------ #
 def main():
     raw_data = sys.argv[1] if len(sys.argv) > 1 else None
     if not raw_data:
