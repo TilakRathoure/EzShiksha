@@ -43,7 +43,7 @@ const Notemaking = () => {
     
   
     return (
-      <div className="w-[100vw] h-[100vh] flex-col items-center justify-center p-8">
+      <div className="w-[100vw] flex-col items-center justify-center p-8">
         <div className={`w-full bg-white rounded-lg shadow-lg p-3 'h-[85vh]'}`}>
           <h1 className=" text-center">Grammar/Spell Check</h1>
           <div className='flex gap-4 justify-center items-center h-full py-4 px-2'>

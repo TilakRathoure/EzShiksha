@@ -1,12 +1,7 @@
-"""
-Lightweight T5-small summarizer
---------------------------------
-- Summarizes text up to 200 words
-- Works offline after first download
-- Automatically uses GPU if available
-- Ready for deployment (no FastAPI needed)
-"""
 
+
+import sys
+import json
 import torch
 from transformers import T5ForConditionalGeneration, T5Tokenizer
 from pathlib import Path
@@ -22,7 +17,6 @@ class T5Summarizer:
 
         local_path = Path(model_dir)
         if local_path.exists():
-            print(f"✅ Loading model locally from: {local_path.resolve()}")
             self.tokenizer = T5Tokenizer.from_pretrained(local_path)
             self.model = T5ForConditionalGeneration.from_pretrained(local_path).to(self.device)
         else:
@@ -61,16 +55,22 @@ class T5Summarizer:
 
 
 if __name__ == "__main__":
-    summarizer = T5Summarizer()
-
-    # Example text (you can replace this with your own input)
-    text = """
-    Artificial intelligence (AI) is revolutionizing industries across the world.
-    From healthcare to finance, AI-driven tools automate tasks, optimize decisions,
-    and uncover insights hidden in massive datasets. The rise of machine learning,
-    natural language processing, and computer vision continues to accelerate
-    innovation and productivity at unprecedented rates.
-    """
-
-    print("\n--- Summary ---\n")
-    print(summarizer.summarize(text))
+    try:
+        # Get input text from command line arg
+        input_text = sys.argv[1] if len(sys.argv) > 1 else """
+            Artificial intelligence (AI) is revolutionizing industries across the world.
+            From healthcare to finance, AI-driven tools automate tasks, optimize decisions,
+            and uncover insights hidden in massive datasets. The rise of machine learning,
+            natural language processing, and computer vision continues to accelerate
+            innovation and productivity at unprecedented rates.
+        """
+        
+        # Initialize summarizer and process text
+        summarizer = T5Summarizer()
+        result =summarizer.summarize(input_text)
+    
+        print("Summary: \n",result)
+        sys.exit(0)
+    except Exception as e:
+        print(json.dumps({"error": str(e)}), file=sys.stderr)
+        sys.exit(1)
