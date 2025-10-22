@@ -18,7 +18,7 @@ const Solve = (req, res) => {
 
     let responseData = '';
 
-    const childPython = spawn('python', [scriptPath, imagePath]);
+    const childPython = spawn('python3', [scriptPath, imagePath]);
 
     childPython.stdout.on('data', (data) => {
         responseData += data.toString();

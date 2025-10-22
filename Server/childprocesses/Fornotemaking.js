@@ -18,7 +18,7 @@ const Grammerly = (req, res) => {
 
     let responseData = '';
 
-    const childPython = spawn('python', [scriptPath, inputText]);
+    const childPython = spawn('python3', [scriptPath, inputText]);
 
     childPython.stdout.on('data', (data) => {
         responseData += data.toString();
