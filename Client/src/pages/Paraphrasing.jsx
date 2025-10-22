@@ -21,7 +21,6 @@ const Notemaking = () => {
 
     Setdisable(true)
     Setloader(true)
-    toast.success("Takes around 15secs")
     try{
         const {data}=await axios.post(`${server}/users/gram`,{
             name:equationInput

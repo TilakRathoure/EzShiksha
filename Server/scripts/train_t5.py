@@ -1,18 +1,10 @@
-"""
-Fine-tune T5-small for note generation (1–10 bullet points)
------------------------------------------------------------
-- Lightweight, CPU/GPU compatible
-- Handles texts up to 200 words
-- Proper padding/truncation for stable batching
-- Saves model locally for offline deployment
-"""
-
 from transformers import (
     T5Tokenizer,
     T5ForConditionalGeneration,
     Trainer,
     TrainingArguments,
-    DataCollatorForSeq2Seq
+    DataCollatorForSeq2Seq,
+    EarlyStoppingCallback
 )
 from datasets import load_dataset
 import torch
@@ -24,13 +16,13 @@ MODEL_DIR = "./models/t5-small-note"
 DATA_DIR = "./data"
 MAX_INPUT_LENGTH = 512
 MAX_TARGET_LENGTH = 256
-BATCH_SIZE = 4
-EPOCHS = 3
-LEARNING_RATE = 3e-4
+BATCH_SIZE = 4              # Safe for 8–12GB GPUs
+EPOCHS = 6                  # Increased for small dataset
+LEARNING_RATE = 2e-4        # Slightly lower for smoother training
 
 # ----------------- Preprocessing -----------------
 def preprocess_function(examples, tokenizer):
-    # Limit input text to 200 words
+    # Limit input text to 200 words for consistency
     inputs = ["generate notes: " + " ".join(text.strip().split()[:200]) for text in examples["text"]]
     model_inputs = tokenizer(
         inputs,
@@ -70,7 +62,7 @@ def main():
         remove_columns=dataset["train"].column_names
     )
 
-    # Data collator to handle dynamic padding
+    # Data collator for dynamic padding
     data_collator = DataCollatorForSeq2Seq(tokenizer, model=model)
 
     # Training arguments
@@ -87,16 +79,19 @@ def main():
         save_total_limit=2,
         load_best_model_at_end=True,
         fp16=torch.cuda.is_available(),
+        logging_steps=50,
+        report_to="none",  # avoid W&B/MLflow unless desired
     )
 
-    # Trainer
+    # Trainer with Early Stopping
     trainer = Trainer(
         model=model,
         args=training_args,
         train_dataset=tokenized_datasets["train"],
         eval_dataset=tokenized_datasets["validation"],
         tokenizer=tokenizer,
-        data_collator=data_collator
+        data_collator=data_collator,
+        callbacks=[EarlyStoppingCallback(early_stopping_patience=2)]
     )
 
     # Train

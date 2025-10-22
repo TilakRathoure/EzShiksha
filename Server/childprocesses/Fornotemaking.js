@@ -1,35 +1,42 @@
-import {spawn} from "child_process"
+import { spawn } from "child_process";
+import path from "path";
+import { fileURLToPath } from "url";
 
-const Grammerly=(req,res)=>{
-    
-// const childPython =spawn('python',['codespace.py']);
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-const inputtext=req.body.name
+const Grammerly = (req, res) => {
+    if (!req.body.name) {
+        return res.status(400).json({ error: "No input text provided" });
+    }
 
-let responseData=''
+    const inputText = req.body.name;
+    const scriptPath = path.join(__dirname, "..", "python", "generate_notes.py");
 
-// const childPython =spawn('python',['codespace.py','OyeKool'])
-const childPython =spawn('python3',['Notegeneration.py',inputtext])
+    console.log("scriptPath:", scriptPath);
+    console.log("inputText:", inputText);
 
+    let responseData = '';
 
-childPython.stdout.on('data',(data)=>{
-    responseData += data.toString();
-});
+    const childPython = spawn('python', [scriptPath, inputText]);
 
-childPython.stderr.on('data',(data)=>{
-    // console.error(`stdout: ${data}`);
-});
+    childPython.stdout.on('data', (data) => {
+        responseData += data.toString();
+    });
 
-childPython.on('close',(code)=>{
-    console.log(`child process exited with code ${code}`);
-        
-    // Once the child process has finished, remove the \r\n characters from responseData
+    childPython.stderr.on('data', (data) => {
+        console.error(`Python stderr: ${data.toString()}`);
+    });
 
-    // Send the modified responseData back in the response
-    res.json({ trying: responseData });
-})
+    childPython.on('close', (code) => {
+        console.log(`Child process exited with code ${code}`);
 
-}
+        if (code === 1) {
+            return res.status(500).json({ error: "Python script error" });
+        }
 
-export default Grammerly
+        res.json({ trying: responseData });
+    });
+};
 
+export default Grammerly;

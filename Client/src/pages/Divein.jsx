@@ -6,7 +6,7 @@ import imag from '../assests/images/image.png'
 import { Link } from 'react-router-dom'
 
 const Divein = () => {
-    const elements=[{name:"Solving Questions",img:formula, p:"Snap, solve. Math made easy. Revolutionize your learning!" ,ap:"/formula"},{name:"Note Making", img:note, p:"Upload image, get concise notes instantly. Simplify your studies!" ,ap:"/notemaking"},{name:"Paraphrasing and Spell Check", img:para, p:"Upload text or image, get paraphrased version instantly.", ap:"/paraphrase"},{name:"Extract text from Image", img:imag, p:"Upload image, get text extracted from it easily" , ap:"/extract"}]
+    const elements=[{name:"Solving Questions",img:formula, p:"Snap, solve. Math made easy. Revolutionize your learning!" ,ap:"/formula"},{name:"Summary And Note Making", img:note, p:"Upload image, get concise notes instantly. Simplify your studies!" ,ap:"/notemaking"},{name:"Grammar and Spell Check", img:para, p:"Upload text or image, get paraphrased version instantly.", ap:"/paraphrase"},{name:"Extract text from Image", img:imag, p:"Upload image, get text extracted from it easily" , ap:"/extract"}]
 
 
   return (

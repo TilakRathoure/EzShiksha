@@ -21,6 +21,7 @@ import { Contextfirst } from ".";
 import Videos from "./pages/Videos";
 import Feedback from "./pages/Feedback";
 import Header from "./components/Header/Header";
+import Footer from "./components/Footer/Footer";
 
 
 function App() {
@@ -63,6 +64,7 @@ function App() {
         <Route path="/feedback" element={<Feedback/>}/>
       </Routes>
       <Toaster/>
+      <Footer/>
     </Router>
   )
 }
