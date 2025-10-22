@@ -1,0 +1,2 @@
+Server/models/t5-small-note/*.safetensors filter=lfs diff=lfs merge=lfs -text
+Server/models/t5-small/*.safetensors filter=lfs diff=lfs merge=lfs -text
