@@ -19,20 +19,25 @@ const Footer = () => {
                   All rights reserved.
                 </span>
               </p>
+
               {/* Social Media Icons */}
-              <div className="mt-2">
-                <span>
-                  <i className="ri-facebook-line text-white mr-3"></i>
-                </span>
-                <span>
-                  <i className="ri-instagram-line text-white mr-3"></i>
-                </span>
-                <span>
-                  <i className="ri-linkedin-line text-white mr-3"></i>
-                </span>
-                <span>
-                  <i className="ri-twitter-line text-white"></i>
-                </span>
+              <div className="mt-2 flex items-center gap-4">
+                <a
+                  className="link-noundy"
+                  href="https://linkedin.com/in/tilakrathoure"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <i className="ri-linkedin-line text-white text-3xl hover:text-black transition-colors"></i>
+                </a>
+                <a
+                  href="https://github.com/TilakRathoure"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="link-noundy"
+                >
+                  <i className="ri-github-line text-white text-3xl hover:text-black transition-colors"></i>
+                </a>
               </div>
             </div>
           </Col>
@@ -48,8 +53,6 @@ const Footer = () => {
             <h6 className="fw-bold">Information</h6>
             <p className="text-black font-sans">Learn more about our policies and services.</p>
           </Col>
-
-          {/* Get in Touch */}
         </Row>
       </Container>
     </footer>

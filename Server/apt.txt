@@ -1,3 +1,0 @@
-tesseract-ocr
-libtesseract-dev
-default-jre

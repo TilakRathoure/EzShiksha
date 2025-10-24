@@ -1,11 +1,12 @@
 import express from "express";
 import { getMyProfile, login, logout, nice, register } from "../controllers/user.js";
 import { isAuthenticated } from "../middlewares/auth.js";
-import Notemaking from "../Fornotemaking.js";
-import Grammerly from "../Forgrammerly.js";
-import Extract from "../ForExtracting.js";
+import Notemaking from "../childprocesses/Fornotemaking.js";
+import Grammerly from "../childprocesses/Forgrammerly.js";
+import Extract from "../childprocesses/ForExtracting.js";
 import multer from "multer";
-import Solve from "../ForSolving.js";
+import Solve from "../childprocesses/ForSolving.js";
+import Summarizer from "../childprocesses/forsummarizer.js";
 
 const router = express.Router();
 
@@ -23,6 +24,7 @@ const storage = multer.diskStorage({
 router.post("/upload",upload.single('image'),Extract)
 router.post("/solve",upload.single('imagesolve'),Solve)
 router.post("/note",Notemaking)
+router.post("/summarize",Summarizer)
 router.post("/gram",Grammerly)
 router.post("/new", register);
 router.post("/login", login);

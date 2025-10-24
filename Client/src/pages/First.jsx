@@ -35,14 +35,14 @@ const First = () => {
           </div>
           <div className="bg-white w-[25%] h-[250px] flex flex-col items-center justify-center rounded-2xl shadow-2xl p-2 pt-4 hover:scale-105 transition">
             <img src={note} className="w-[50%] h-[30%] object-contain" alt="" />
-            <h5 className="text-sm md:text-xl">Note Making</h5>
+            <h5 className="text-sm md:text-xl text-center">Summary, Note Making</h5>
             <p className="text-black text-[10px] lg:text-lg leading-[18px] lg:overflow-hidden">
               Upload image, get concise notes instantly. Simplify your studies!{" "}
             </p>
           </div>
           <div className="bg-white w-[25%] h-[250px] flex flex-col items-center justify-center rounded-2xl shadow-2xl p-2 hover:scale-105 transition translate-y-2 text-wrap">
             <img src={para} className="w-[50%] h-[30%] object-contain" alt="" />
-            <h5 className="text-sm md:text-xl text-center">Grammar, Spell Check</h5>
+            <h5 className="text-sm md:text-xl text-center">Grammar/ Spell Check</h5>
             <p className="text-black text-[10px] lg:overflow-hidden lg:text-lg leading-[18px]">
               Upload text or image, get paraphrased version instantly.
             </p>
