@@ -41,9 +41,17 @@ class NoteGenerator:
 if __name__ == "__main__":
     try:
         # Get input text from command-line argument
-        input_text = sys.argv[1] if len(sys.argv) > 1 else ""
-        if not input_text.strip():
-            raise ValueError("No input text provided")
+        input_text = sys.argv[1] if len(sys.argv) > 1 else """
+Done — I created two JSONL files, each with 100 unique objects (and ensured they don't duplicate texts from the 600-object file).
+
+Download links:
+
+Download file 1 — 100_objects_1.jsonl
+
+Download file 2 — 100_objects_2.jsonl
+
+If you want different topic themes, a specific word-count distribution, or the notes formatted one-per-line instead of a single string, tell me and I’ll regenerate accordingly.
+        """
 
         generator = NoteGenerator()
         result = generator.generate_notes(input_text)

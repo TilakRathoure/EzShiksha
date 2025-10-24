@@ -18,6 +18,12 @@ RUN npm install
 COPY requirements.txt .
 RUN pip3 install --break-system-packages --no-cache-dir -r requirements.txt
 
+# Download model during build
+RUN python3 -c "from transformers import T5ForConditionalGeneration, T5Tokenizer; \
+T5Tokenizer.from_pretrained('t5-small', cache_dir='/app/models'); \
+T5ForConditionalGeneration.from_pretrained('t5-small', cache_dir='/app/models')"
+ENV TRANSFORMERS_CACHE=/app/models
+
 # Copy rest of the app
 COPY . .
 
