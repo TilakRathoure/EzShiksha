@@ -30,9 +30,9 @@ app.use("/api/v1/users", userRouter);
 app.get("/", (req, res) => {
   res.send("Nice working");
 });
-app.get("/checking",(req,res)=>{
-  res.send("checking good");
-})
+app.get("/checking", (req, res) => {
+  res.status(200).json({ message: "Server is awake!" });
+});
 
 // Using Error Middleware
 app.use(errorMiddleware);
