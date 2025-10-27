@@ -1,63 +1,59 @@
-"""
-Use fine-tuned T5-small model for note generation (offline ready)
----------------------------------------------------------------
-"""
-
 import sys
 import json
 import torch
 from transformers import T5Tokenizer, T5ForConditionalGeneration
 from pathlib import Path
 
-MODEL_PATH = "./models/t5-small-note"
+MODEL_PATH = "./models/t5-small-note-quantized"
 
-class NoteGenerator:
-    def __init__(self, model_path=MODEL_PATH):
-        self.device = "cuda" if torch.cuda.is_available() else "cpu"
-        local_path = Path(model_path)
-        if local_path.exists():
-            self.tokenizer = T5Tokenizer.from_pretrained(local_path)
-            self.model = T5ForConditionalGeneration.from_pretrained(local_path).to(self.device)
-        else:
-            print(f"⬇️ Model path '{model_path}' not found. Please ensure the model exists.", file=sys.stderr)
-            sys.exit(1)
-
-    def generate_notes(self, text: str, max_length=256, min_length=50):
-        text = " ".join(text.strip().split()[:200])  # limit to 200 words
-        input_text = f"generate notes: {text}"
-
-        inputs = self.tokenizer.encode(input_text, return_tensors="pt", truncation=True).to(self.device)
-        outputs = self.model.generate(
-            inputs,
-            max_length=max_length,
-            min_length=min_length,
-            num_beams=5,
-            length_penalty=2.0,
-            early_stopping=True,
-        )
-        result = self.tokenizer.decode(outputs[0], skip_special_tokens=True)
-        return result
-
-if __name__ == "__main__":
+def main():
     try:
-        # Get input text from command-line argument
-        input_text = sys.argv[1] if len(sys.argv) > 1 else """
-Done — I created two JSONL files, each with 100 unique objects (and ensured they don't duplicate texts from the 600-object file).
+        # 1️⃣ Get input text from Node process
+        if len(sys.argv) < 2:
+            print(json.dumps({"error": "No input text provided"}))
+            sys.exit(1)
+        input_text = sys.argv[1].strip()
 
-Download links:
+        # 2️⃣ Load model and tokenizer (lazy load)
+        print("🔹 Loading tokenizer...", file=sys.stderr)
+        tokenizer = T5Tokenizer.from_pretrained(MODEL_PATH)
 
-Download file 1 — 100_objects_1.jsonl
+        print("💾 Loading quantized model object...", file=sys.stderr)
+        quantized_model_path = Path(MODEL_PATH) / "quantized_model.pt"
+        if not quantized_model_path.exists():
+            raise FileNotFoundError(f"Quantized model not found at {quantized_model_path}")
 
-Download file 2 — 100_objects_2.jsonl
+        # Allowlist T5 class (safe for local model)
+        torch.serialization.add_safe_globals([T5ForConditionalGeneration])
 
-If you want different topic themes, a specific word-count distribution, or the notes formatted one-per-line instead of a single string, tell me and I’ll regenerate accordingly.
-        """
+        # Load model
+        model = torch.load(quantized_model_path, map_location="cpu", weights_only=False)
+        model.eval()
 
-        generator = NoteGenerator()
-        result = generator.generate_notes(input_text)
-        print("Notes: \n",result)
+        # 3️⃣ Generate notes
+        processed_input = f"generate notes: {input_text}"
+        inputs = tokenizer.encode(processed_input, return_tensors="pt", truncation=True)
+
+        with torch.no_grad():
+            outputs = model.generate(
+                inputs,
+                max_length=256,
+                min_length=50,
+                num_beams=5,
+                length_penalty=2.0,
+                early_stopping=True,
+            )
+
+        result = tokenizer.decode(outputs[0], skip_special_tokens=True)
+
+        # 4️⃣ Print to stdout (Node reads this)
+        print(result)
         sys.exit(0)
 
     except Exception as e:
         print(json.dumps({"error": str(e)}), file=sys.stderr)
         sys.exit(1)
+
+
+if __name__ == "__main__":
+    main()
