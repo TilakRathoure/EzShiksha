@@ -13,7 +13,6 @@ const Notemaking = () => {
   const [loader, setLoader] = useState(false);
 
   const controllerRef = useRef(null);
-  const isMountedRef = useRef(true);
 
   const handleRequest = async (type) => {
     if (!inputText || inputText.length <= 20) {
@@ -24,7 +23,7 @@ const Notemaking = () => {
     setDisable(true);
     setLoader(true);
 
-    // Abort any previous request
+    // Abort any previous pending request
     if (controllerRef.current) controllerRef.current.abort();
     controllerRef.current = new AbortController();
 
@@ -38,27 +37,24 @@ const Notemaking = () => {
           headers: { "Content-Type": "application/json" },
           withCredentials: true,
           signal: controllerRef.current.signal,
+          timeout: 50000,
         }
       );
-
-      if (!isMountedRef.current) return; // prevent setting state after unmount
 
       if (type === "summary") setSummaryOutput(data.trying);
       else setNotesOutput(data.trying);
 
       toast.success(`${type === "summary" ? "Summary" : "Notes"} Done!`);
     } catch (e) {
-      if (axios.isCancel(e)) {
-        console.log("🟡 Request canceled");
-      } else if (isMountedRef.current) {
+      if (e.code === "ECONNABORTED") {
+        toast.error("Render's Server Timedout");
+      } else {
         toast.error("Error occurred, try again");
         console.error(e);
       }
     } finally {
-      if (isMountedRef.current) {
-        setDisable(false);
-        setLoader(false);
-      }
+      setDisable(false);
+      setLoader(false);
     }
   };
 
@@ -67,18 +63,6 @@ const Notemaking = () => {
     setSummaryOutput("");
     setNotesOutput("");
   };
-
-  // Cleanup on unmount
-  useEffect(() => {
-    isMountedRef.current = true;
-    return () => {
-      isMountedRef.current = false;
-      if (controllerRef.current) {
-        controllerRef.current.abort();
-        console.log("🔴 API call canceled — component unmounted");
-      }
-    };
-  }, []);
 
   return (
     <div className="w-[100vw] flex-col items-center justify-center p-8 border-black">
