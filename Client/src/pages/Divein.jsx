@@ -14,12 +14,6 @@ const Divein = () => {
       ap: "/formula",
     },
     {
-      name: "Summary And Note Making",
-      img: note,
-      p: "Upload image, get concise notes instantly. Simplify your studies!",
-      ap: "/notemaking",
-    },
-    {
       name: "Extract text from Image",
       img: imag,
       p: "Upload image, get text extracted from it easily",
@@ -30,6 +24,12 @@ const Divein = () => {
       img: para,
       p: "Upload text or image, get paraphrased version instantly.",
       ap: "/paraphrase",
+    },
+    {
+      name: "Summary And Note Making",
+      img: note,
+      p: "Upload image, get concise notes instantly. Simplify your studies!",
+      ap: "/notemaking",
     },
   ];
 

@@ -1,2 +1,2 @@
-models/t5-small-note/*.safetensors filter=lfs diff=lfs merge=lfs -text
-models/t5-small/*.safetensors filter=lfs diff=lfs merge=lfs -text
+fastapi/models/t5-small-note/*.safetensors filter=lfs diff=lfs merge=lfs -text
+fastapi/models/t5-small/*.safetensors filter=lfs diff=lfs merge=lfs -text
