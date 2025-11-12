@@ -59,7 +59,12 @@ def home():
 @app.post("/generate-notes")
 def generate_notes(request: NoteRequest):
     try:
+        print(f"🟢 Incoming text length: {len(request.text)}")
         result = generator.generate_notes(request.text)
+        print("✅ Notes generated successfully")
         return {"notes": result}
     except Exception as e:
+        import traceback
+        print("❌ Error generating notes:", e)
+        traceback.print_exc()
         raise HTTPException(status_code=500, detail=str(e))
