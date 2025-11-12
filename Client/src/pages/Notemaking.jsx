@@ -46,12 +46,7 @@ const Notemaking = () => {
 
       toast.success(`${type === "summary" ? "Summary" : "Notes"} Done!`);
     } catch (e) {
-      if (e.code === "ECONNABORTED") {
-        toast.error("Render's Server Timedout");
-      } else {
-        toast.error("Error occurred, try again");
-        console.error(e);
-      }
+      toast.error("This AI model exceeds Render’s free plan limits.");
     } finally {
       setDisable(false);
       setLoader(false);
