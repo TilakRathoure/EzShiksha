@@ -8,19 +8,29 @@ app = FastAPI(title="T5 Note Generator API")
 
 MODEL_PATH = "./models/t5-small-note"
 
-# ---------- Load model once at startup ----------
 class NoteGenerator:
     def __init__(self, model_path=MODEL_PATH):
+        self.model_path = Path(model_path)
         self.device = "cuda" if torch.cuda.is_available() else "cpu"
-        local_path = Path(model_path)
-        if local_path.exists():
-            print("✅ Loading fine-tuned model from:", model_path)
-            self.tokenizer = T5Tokenizer.from_pretrained(local_path)
-            self.model = T5ForConditionalGeneration.from_pretrained(local_path).to(self.device)
+        self.model = None
+        self.tokenizer = None
+
+    def load_model(self):
+        """Loads the model only once, when needed."""
+        if self.model is None or self.tokenizer is None:
+            if self.model_path.exists():
+                print("✅ Loading fine-tuned model from:", self.model_path)
+                self.tokenizer = T5Tokenizer.from_pretrained(self.model_path)
+                self.model = T5ForConditionalGeneration.from_pretrained(self.model_path).to(self.device)
+            else:
+                raise RuntimeError(f"Model path '{self.model_path}' not found.")
         else:
-            raise RuntimeError(f"Model path '{model_path}' not found.")
+            print("⚡ Model already loaded in memory.")
 
     def generate_notes(self, text: str, max_length=256, min_length=50):
+        """Generates notes using the model (loads it if not already loaded)."""
+        self.load_model()  # Lazy load
+
         text = " ".join(text.strip().split()[:200])
         input_text = f"generate notes: {text}"
 
@@ -33,18 +43,15 @@ class NoteGenerator:
             length_penalty=2.0,
             early_stopping=True,
         )
-        result = self.tokenizer.decode(outputs[0], skip_special_tokens=True)
-        return result
+        return self.tokenizer.decode(outputs[0], skip_special_tokens=True)
 
 
-# ---------- Initialize model ----------
+# ---------- Initialize lazy generator (no load yet) ----------
 generator = NoteGenerator()
 
-# ---------- Request Body ----------
 class NoteRequest(BaseModel):
     text: str
 
-# ---------- Routes ----------
 @app.get("/")
 def home():
     return {"message": "T5 Note Generator API is running!"}
