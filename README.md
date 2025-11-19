@@ -1,6 +1,6 @@
 # EzShiksha – Smart Learning Platform
 
-[![Live Demo](https://img.shields.io/badge/Demo-Live-success)](https://github.com/TilakRathoure/EzShiksha) [![GitHub](https://img.shields.io/badge/GitHub-Repository-blue)](https://ez-shiksha.vercel.app/)
+[![Live Demo](https://img.shields.io/badge/Demo-Live-success)](https://ez-shiksha.vercel.app/) [![GitHub](https://img.shields.io/badge/GitHub-Repository-blue)](https://github.com/TilakRathoure/EzShiksha)
 
 **Simplify academics with AI-powered learning tools.** EzShiksha streamlines your study workflow by solving complex math problems, extracting text from images, and generating concise note summaries—all in one intelligent platform.
 
