@@ -38,11 +38,6 @@ const Testimonials = () => {
 
                       "EzShiksha transformed my study routine! Instant math solutions and concise notes saved me time and boosted my grades. Highly recommend!" - Sarah
                       </p>
-
-                      <div className="student__info mt-4">
-                        <h6 className="fw-bold">Jhon Doe</h6>
-                        <p>California, United State</p>
-                      </div>
                     </div>
                   </div>
 
@@ -55,11 +50,6 @@ const Testimonials = () => {
 
                       "EzShiksha's chatbot support is a game-changer! It guided me through tough concepts, making learning feel personalized and accessible. Truly indispensable!" - Rahul
                       </p>
-
-                      <div className="student__info mt-4">
-                        <h6 className="fw-bold">Jhon Doe</h6>
-                        <p>Delhi, India</p>
-                      </div>
                     </div>
                   </div>
 
@@ -72,11 +62,6 @@ const Testimonials = () => {
 
                       "EzShiksha's text extraction feature simplified my research. Now, I can easily access information from images, enhancing my study materials and academic performance. Absolutely invaluable!" - Maya
                       </p>
-
-                      <div className="student__info mt-4">
-                        <h6 className="fw-bold">Jhon Doe</h6>
-                        <p>California, United State</p>
-                      </div>
                     </div>
                   </div>
                 </Slider>

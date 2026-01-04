@@ -133,7 +133,7 @@ if __name__ == "__main__":
     extracted_text = extract_text_from_image(image_path)
 
     if not extracted_text:
-        print("❌ Failed to extract text from the image.")
+        print("Failed to extract text from the image.")
         sys.exit(1)
 
     classification = classify_equation(extracted_text)

@@ -4,3 +4,4 @@ Pillow
 pytesseract
 sympy
 pyspellchecker
+sentencepiece
