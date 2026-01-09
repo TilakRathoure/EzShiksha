@@ -32,7 +32,8 @@ function App() {
       const serverToast = toast.loading("Connecting to Render Backend...");
       try {
         const { data } = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/checking`);
-        toast.success("Connected successfully!", { id: serverToast });
+        toast.success(
+          "Connected successfully!", { id: serverToast });
       } catch (error) {
         toast.error("Failed to connect to backend.", { id: serverToast });
         console.error(error);
